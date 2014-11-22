@@ -45,7 +45,7 @@
 		<ul>
 			<?php foreach (Config::get('app.locales') as $locale => $language): ?>
 			<li class='<?= $locale == App::getLocale() ? 'current' : '' ?>'>
-				<a href='<?= url(sprintf($changeLocaleUrl, $locale)) ?>'><img src='<?= url('img/country/'. $locale . '.gif') ?>' /></a>
+				<a href='<?= url($locale) ?>'><img src='<?= url('img/country/'. $locale . '.gif') ?>' /></a>
 			</li>
 			<?php endforeach; ?>
 		</ul>
