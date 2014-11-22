@@ -20,4 +20,9 @@ class HomeController extends Controller {
 		return view('hello');
 	}
 
+	public function locale()
+	{
+		return view('locale');
+	}
+
 }

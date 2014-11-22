@@ -13,7 +13,7 @@ return [
 	|
 	*/
 
-	'debug' => false,
+	'debug' => true,
 
 	/*
 	|--------------------------------------------------------------------------
@@ -53,6 +53,7 @@ return [
 	*/
 
 	'locale' => 'en',
+	'locales' => ['en' => 'English', 'sv' => 'Swedish'],
 
 	/*
 	|--------------------------------------------------------------------------
@@ -116,6 +117,7 @@ return [
 		'App\Providers\AppServiceProvider',
 		'App\Providers\EventServiceProvider',
 		'App\Providers\RouteServiceProvider',
+		'App\Providers\ViewComposerServiceProvider',
 
 		/*
 		 * Laravel Framework Service Providers...

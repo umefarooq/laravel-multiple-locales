@@ -11,7 +11,8 @@
 |
 */
 
-$router->get('/', 'HomeController@index');
+$router->get('locale', ['as' => 'locale', 'uses' => 'HomeController@locale']);
+$router->get('/', ['as' => 'index', 'uses' => 'HomeController@index']);
 
 /*
 |--------------------------------------------------------------------------

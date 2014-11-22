@@ -1,6 +1,7 @@
 <?php namespace App\Providers;
 
 use Illuminate\Routing\Router;
+use Illuminate\Http\Request;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 
 class RouteServiceProvider extends ServiceProvider {
@@ -32,9 +33,14 @@ class RouteServiceProvider extends ServiceProvider {
 	 *
 	 * @return void
 	 */
-	public function map()
+	public function map(Router $router, Request $request)
 	{
-		$this->loadRoutesFrom(app_path('Http/routes.php'));
+		$locale = $request->segment(1);
+		$this->app->setLocale($locale);
+
+		$router->group(['namespace' => 'App\Http\Controllers', 'prefix' => $locale], function($router) {
+			require app_path('Http/routes.php');
+		});
 	}
 
 }
