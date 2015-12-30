@@ -32,7 +32,9 @@ class Language implements Middleware {
 
 		if ( ! array_key_exists($locale, $this->app->config->get('app.locales'))) {
 			$segments = $request->segments();
-			$segments[0] = $this->app->config->get('app.fallback_locale');
+			
+			$locale = [$this->app->config->get('app.fallback_locale')];
+                        $segments = array_merge($locale,$segments);
 
 			return $this->redirector->to(implode('/', $segments));
 		}
