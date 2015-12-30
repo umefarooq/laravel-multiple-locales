@@ -38,8 +38,8 @@ class RouteServiceProvider extends ServiceProvider {
     {
         $locale = $request->segment(1);
 
-        if(in_array($locale,$this->app->config->get('app.skiped_routes'))) {
-            $this->skippedLocaleRoutes($router);
+        if(in_array($locale,$this->app->config->get('app.skip_locales'))) {
+            $this->skipLocaleRoutes($router);
         }
         else {
             $this->localeRoutes($router,$locale);
@@ -67,7 +67,7 @@ class RouteServiceProvider extends ServiceProvider {
      * @param  \Illuminate\Routing\Router $router 
      * @return void
      */
-    private function skippedLocaleRoutes($router)
+    private function skipLocaleRoutes($router)
     {
         $router->group(['namespace' => $this->namespace], function ($router) {
             require app_path('Http/routes.php');
