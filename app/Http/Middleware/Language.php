@@ -25,6 +25,10 @@ class Language implements Middleware {
 	{
 		// Make sure current locale exists.
 		$locale = $request->segment(1);
+		
+		if(in_array($locale,$this->app->config->get('app.skip_locales'))) {
+                   return $next($request);
+                }
 
 		if ( ! array_key_exists($locale, $this->app->config->get('app.locales'))) {
 			$segments = $request->segments();
