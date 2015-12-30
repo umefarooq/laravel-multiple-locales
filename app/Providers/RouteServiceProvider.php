@@ -28,19 +28,50 @@ class RouteServiceProvider extends ServiceProvider {
 		//
 	}
 
-	/**
-	 * Define the routes for the application.
-	 *
-	 * @return void
-	 */
-	public function map(Router $router, Request $request)
-	{
-		$locale = $request->segment(1);
-		$this->app->setLocale($locale);
+    /**
+     * Define the routes for the application.
+     *
+     * @param  \Illuminate\Routing\Router  $router
+     * @return void
+     */
+    public function map(Router $router, Request $request)
+    {
+        $locale = $request->segment(1);
 
-		$router->group(['namespace' => $this->namespace, 'prefix' => $locale], function($router) {
-			require app_path('Http/routes.php');
-		});
-	}
+        if(in_array($locale,$this->app->config->get('app.skiped_routes'))) {
+            $this->skippedLocaleRoutes($router);
+        }
+        else {
+            $this->localeRoutes($router,$locale);
+        }
+    }
+
+    /**
+     * Add a locale prefix to routes  
+     * @param  \Illuminate\Routing\Router $router $router 
+     * @param  string $locale 
+     * @return void
+     */
+    private function localeRoutes($router,$locale)
+    {
+        
+        $this->app->setLocale($locale);
+
+        $router->group(['namespace' => $this->namespace, 'prefix' => $locale], function($router) {
+            require app_path('Http/routes.php');
+        });
+    }
+
+    /**
+     * Map routes without locale prefix
+     * @param  \Illuminate\Routing\Router $router 
+     * @return void
+     */
+    private function skippedLocaleRoutes($router)
+    {
+        $router->group(['namespace' => $this->namespace], function ($router) {
+            require app_path('Http/routes.php');
+        });
+    }
 
 }
